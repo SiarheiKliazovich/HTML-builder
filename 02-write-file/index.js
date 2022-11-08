@@ -7,8 +7,7 @@ const filePath = path.join(__dirname, 'file.txt');
 fs.open('file.txt', 'w', (err) => {
     if(err) throw err;
     console.log('File created');
-// fs.open(filePath, 'r+', (err) => {
-//     if(err) throw err;
+
     const writableStream = fs.createWriteStream(filePath);
     const { stdin, stdout } = process;
     process.exitCode = 'exit';
