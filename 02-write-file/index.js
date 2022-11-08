@@ -2,8 +2,13 @@ const fs = require('fs');
 const path = require('path');
 const filePath = path.join(__dirname, 'file.txt');
 
-fs.open(filePath, 'r+', (err) => {
+
+
+fs.open('file.txt', 'w', (err) => {
     if(err) throw err;
+    console.log('File created');
+// fs.open(filePath, 'r+', (err) => {
+//     if(err) throw err;
     const writableStream = fs.createWriteStream(filePath);
     const { stdin, stdout } = process;
     process.exitCode = 'exit';
@@ -11,10 +16,11 @@ fs.open(filePath, 'r+', (err) => {
 
     stdin.on('data', data => {
         const text = data.toString();
-        writableStream.write(text);
         if (text.trim() === process.exitCode) {
             console.log('Thank you. Good luck');
             process.exit();
+        } else {
+            writableStream.write(text);
         }
 
         process.on('SIGINT', function() {
